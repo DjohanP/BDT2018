@@ -30,11 +30,11 @@
 ### g. Menyalakan slave `START SLAVE;`
 ### h. Melihat status slave `SHOW SLAVE STATUS\G`
 ## 4. Promote slave to master
-### a. `sudo serice mysql stop`
+### a. `sudo service mysql stop`
 ### b. Pada semua lakukan `STOP SLAVE;` dan juga `RESET SLAVE`
-### c. Pada salah satu slave ganti server-id=1
+### c. Pada salah satu slave ganti server-id=1 dan restart mySQL
 ### d. Semua slave diganti `CHANGE MASTER TO MASTER_HOST='ip slave baru',MASTER_USER='repl1', MASTER_PASSWORD='password';` dan lakukan `start slave`
-## 4. Import database sakila pada master yang baru
+## 5. Import database sakila pada master yang baru
 ### a. Pada setiap slave lakukan `STOP SLave;`
 ### b. Tambahkan `binlog_do_db=sakila` pada file mysqld.cnf di master yang baru
 ### c. `sudo service mysql restart`
@@ -42,7 +42,7 @@
 ### e. `mysql -u root -p sakila < sakila-mv-schema.sql`
 ### f. `mysql -u root -p sakila < sakila-mv-data.sql`
 ### g. Pada setiap slave lakukan `START SLAVE;`
-## 5. Master yang lama menjadi slave
+## 6. Master yang lama menjadi slave
 ### a. Ubah `server-id=2` pada mysqld.cnf
 ### b. `sudo service mysql start`
 ### c. Lalu pada mysql lakukan `CHANGE MASTER TO MASTER_HOST='ip slave baru',MASTER_USER='repl1', MASTER_PASSWORD='password';` dan lakukan `start slave`
